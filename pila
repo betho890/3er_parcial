@@ -22,7 +22,7 @@ public:
   
     StackDin() : SP(NULL), ITEMS(0), ITEMSIZE(sizeof(DATA_TYPE)) {}
 
-  
+ 
     ~StackDin() {}
 
   
