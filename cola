@@ -1,0 +1,150 @@
+#include <iostream>
+using namespace std;
+ 
+ 
+
+struct nodo
+{
+    int num;
+    struct nodo *lugar;
+};
+ 
+ 
+
+{
+    nodo *delante;
+    nodo *atras  ;
+};
+ 
+ 
+
+void meter_cola( struct cola &q, int valor )
+{
+     struct nodo *aux = new(struct nodo);
+     
+     aux->num = valor;
+     aux->lugar = NULL;
+     
+     if( q.delante == NULL)
+         q.delante = aux;   
+     else
+         (q.atras)->lugar = aux;
+         
+     q.atras = aux;        
+     
+}
+ 
+
+int sacar_cola( struct cola &q )
+{
+     int num ;
+     struct nodo *aux ;
+     
+     aux = q.delante;
+     num = aux->num;
+     q.delante = (q.delante)->lugar;
+     delete(aux);    
+     
+     return num;
+}
+ 
+void muestraCola( struct cola q )
+{
+     struct nodo *aux;
+     
+     aux = q.delante;
+         
+     while( aux != NULL )
+     {
+            cout<<"   "<< aux->num ;
+            aux = aux->lugar;
+     }    
+}
+ 
+void vaciaCola( struct cola &q)
+{
+     struct nodo *aux;
+     
+     while( q.delante != NULL)
+     {
+            aux = q.delante;
+            q.delante = aux->lugar;
+            delete(aux);
+     }
+     q.delante = NULL;
+     q.atras   = NULL;
+     
+}
+ 
+void menu()
+{
+    cout<<"\n\t IMPLEMENTACION DE COLAS EN C++\n\n";
+    cout<<" 1. meter a cola                              "<<endl;
+    cout<<" 2. sacar de cola                             "<<endl;
+    cout<<" 3. mostrar cola                              "<<endl;
+    cout<<" 4. vaciar cola                               "<<endl;
+    cout<<" 5. salir                                     "<<endl;
+ 
+    cout<<"\n elija una opcion: ";
+}
+ 
+
+int main()
+{
+    struct cola q;
+   
+    q.delante = NULL;
+    q.atras   = NULL;
+   
+   
+    int dato;  
+    int opcion;    
+    int x ;    
+   
+    system("color 0b");
+ 
+    do
+    {
+        menu();  cin>> opcion;
+ 
+        switch(opcion)
+        {
+            case 1:
+ 
+                 cout<< "\n NUMERO A ENCOLAR: "; cin>> dato;
+                 meter_cola( q, dato );
+                 cout<<"\n\n\t\tNumero " << dato << " encolado...\n\n";
+            break;
+ 
+ 
+            case 2:
+ 
+                 x = sacar_cola ( q );
+                 cout<<"\n\n\t\tNumero "<< x <<" desencolado...\n\n";
+            break;
+                 
+ 
+            case 3:
+ 
+                 cout << "\n\n MOSTRANDO COLA\n\n";
+                 if(q.delante!=NULL) muestraCola( q );
+                 else   cout<<"\n\n\tCola vacia...!"<<endl;
+            break;
+ 
+ 
+            case 4:
+ 
+                 vaciarCola( q );
+                 cout<<"\n\n\t\tHecho...\n\n";
+            break;
+           
+         }
+ 
+        cout<<endl<<endl;
+        system("pause");  system("cls");
+ 
+    }while(opcion!=5);
+   
+   
+    return 0;
+}
